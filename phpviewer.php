@@ -144,9 +144,9 @@ class phpfiler{
 		}
 	
 	public function setfile():string{
-		$_socrates = "<p>I Begg Of You! Cicero, dont let them find them!</p>".$this->getfile();;
+		$_soc = "<p>I Begg Of You! Cicero, dont let them find them!</p>".$this->getfile();
 		$_stylesheet = $this->assets("stylesheet");
-		$_transactional = $this->_html($_stylesheet, $_socrates);
+		$_transactional = $this->_html($_stylesheet, $_soc);
 		return (string) $_transactional;
 		}
 	
