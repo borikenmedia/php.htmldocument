@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(E_ERROR|E_PARSE|E_NOTICE|E_ALL);
+ini_set("error_reporting", E_ALL);
 date_default_timezone_set("UTC");
 header("Content-type: text/html; Charset: UTF-8; Pragma: no-cache;");
 
@@ -12,14 +12,26 @@ header("Content-type: text/html; Charset: UTF-8; Pragma: no-cache;");
 
 define("_PATH", dirname(__DIR__));
 define("_TIME", date("D M d Y h:ia"));
-
 /* unittesting tests 02 */
 
-include("phpviewer.php");
+include("libs/logs.php");
+include("libs/phpviewer.php");
+/* Include Libraries and Dictionaries */
 
 $app = new phpfiler();
+/* Invoke the php/html class and methods */
 
-$_render = $app->setfile();
+$path = "tmp/logs/logs.{$app->_ssid}.txt";
+$data = array(
+			"reqaddr" => $_SERVER["REMOTE_ADDR"],
+			"requri" => $_SERVER["REQUEST_URI"],
+			"reqhttp" => $_SERVER["HTTP_USER_AGENT"],
+			"reqdate" => date("D M d Y h:ia"),
+			"reqssid" => $app->_ssid);
+logs($path, $data);
+/* Generated content for computer language */
+
+$_render = $app->sortfile();
 
 echo $_render;
 
