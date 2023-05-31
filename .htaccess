@@ -1,0 +1,19 @@
+DirectoryIndex index.php
+
+Options -Indexes
+Options -Includes
+Options +FollowSymLinks
+
+AddType application/x-httpd-php .phtml .php5 .tpl
+
+php_flag display_startup_errors ON
+php_flag display_errors ON
+
+RewriteEngine ON
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-s
+RewriteCond %{REQUEST_FILENAME} !-l
+
+RewriteRule ^(.+[^/])$ index.php?app=$1
