@@ -1,4 +1,5 @@
 # php.htmldocument
 A php class program that would generate html documents and tools.
-This class (object) is a web (network) tool that allows the user knowing the platform to perform tasks or changes to already existing document in HTML (format) or generate new document. This program is able to generate html document landing pages or information_summary reports.
-[Changes][Reports]
+This class (object) is a web (network) tool that allows the user knowing the platform to perform tasks or changes to already existing document in HTML (format) or generate new document. This program is able to generate html document landing pages or information_summary reports. Changelogs and Changereports are diferent from each platform and manufacturer, please see youre platform setting or employer requirements before any use of this [Changes][Reports][script].
+
+This is a Php7 html web document generator that keeps track of the document content and generation using the standar versioning platforms like regional timezone or express denominable. It is a php program object oriented or a class that would be able to accept changes as of the needs and computer administration level of the developer. This is not a snnipet with the basic fundamental methods or data structure, please be aware that for the right use, the developer must have a self aware of the knowing structure and wery well recomended its own view and style for code and computer languages generated information.
