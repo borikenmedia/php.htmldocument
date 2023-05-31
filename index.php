@@ -23,11 +23,11 @@ $app = new phpfiler();
 
 $path = "tmp/logs/logs.{$app->_ssid}.txt";
 $data = array(
-			"reqaddr" => $_SERVER["REMOTE_ADDR"],
-			"requri" => $_SERVER["REQUEST_URI"],
-			"reqhttp" => $_SERVER["HTTP_USER_AGENT"],
-			"reqdate" => date("D M d Y h:ia"),
-			"reqssid" => $app->_ssid);
+	"reqaddr" => $_SERVER["REMOTE_ADDR"],
+	"requri" => $_SERVER["REQUEST_URI"],
+	"reqhttp" => $_SERVER["HTTP_USER_AGENT"],
+	"reqdate" => date("D M d Y h:ia"),
+	"reqssid" => $app->_ssid);
 logs($path, $data);
 /* Generated content for computer language */
 
