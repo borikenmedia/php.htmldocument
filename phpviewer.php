@@ -8,12 +8,12 @@
  
 trait dhtml{
 	
-	public function _html($_style, $_content){
+	public function _html(string $_style, array $_content){
 $_html = <<<EOF
 <!DOCTYPE html public>
 <html lang="en-us">
 <head>
-<title>Boriken Media Subsessions</title>
+<title>{$_content["title"]}</title>
 <meta name="description" content="FILEBROWSER" />
 <meta name="aucthor" content="dyewilliam" />
 <meta charset="UTF-8" />
@@ -25,12 +25,12 @@ $_html = <<<EOF
 </head>
 <body>
 <div id="wrapper">
-	<div id="banner">Digital Graphic Content Urne</div>
+	<div id="banner">{$_content["banner"]}</div>
 	<div id="_new"></div>
-	<div id="_sitemap">Home &gt; Date &minus;&gt; 00-00-0000</div>
+	<div id="_sitemap">Home &gt; {$_content["sitemap"]}</div>
 	<div id="_info">
 		<div id="_sidebar">SIDEBAR</div>
-		<div id="_content">{$_content}</div>
+		<div id="_content">{$_content["body"]}</div>
 	</div>
 	<div id="_new"></div>
 	<div id="_copyright">Copyright &copy; 2011/2023 &minus; www.borikenmedia.com &minus; Contact</div>
@@ -133,44 +133,68 @@ EOF;
  
 class phpfiler{
 	
-	var $_db;
+	var $_ssid;
 	var $_tpl;
 	var $_path;
 	
 	use dhtml;
 	
-	public function __Construct(string $_path = "/home/pi/lamp/"){
+	public function __Construct(string $_path = "/var/www/html/nodes/tmp/"){
 		$this->_path = $_path;
+		$this->_ssid = $this->session_id();
 		}
 	
-	public function setfile():string{
-		$_soc = "<p>I Begg Of You! Cicero, dont let them find them!</p>".$this->getfile();
-		$_stylesheet = $this->assets("stylesheet");
-		$_transactional = $this->_html($_stylesheet, $_soc);
-		return (string) $_transactional;
+	private function setfile(string $_data):bool{
+		$_file = $this->_path."cache/{$this->_ssid}.html";
+		if($fp = fopen($_file, "w+")){
+			fwrite($fp, $_data);
+			fclose($fp);
+			}else{
+				throw new \Exception("Error: The requested path::file is not available", 1);
+				}
+			return (bool) true;
 		}
 	
-	public function getfile():string{
-		$_path = "tmp/LIPSUM.txt";
+	private function getfile():string{
+		$_path = "tmp/content.txt";
 		$_read = "";
 		if(file_exists($_path)){
 			$fp = fopen($_path,"r");
 			$_read .= fread($fp, filesize($_path));
 			fclose($fp);
 			}else{
-				$_read .= "The requested file doesnt exists";
+				throw new \Exception("Error: The requested file::content is noat available", 1);
 				}
-			return(string) $_read;
+			return (string) $_read;
 		}
 	
-	public function sortfile():string{}
+	public function sortfile():string{
+		$_stylesheet = $this->assets("stylesheet");
+		$_content = array(
+			"title" => "Boriken Media Subs 2023",
+			"banner" => "Graphic Content Urne", 
+			"sitemap" => "Sample Document", 
+			"body" => $this->getfile());
+		/* Iterate through array */
+		$this->_tpl = $this->_html($_stylesheet, $_content);
+		$this->setfile($this->_tpl);
+		return (string) $this->_tpl;
+		}
 	
-	public function deletefile(){}
+	function deletefile(){}
+	
+	private function session_id():string{
+		$_string = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890+\\";
+		$_length = rand(11,25);
+		$_value = substr(str_shuffle($_string), 0, $_length);
+		return (string) $_value;
+		}
 	
 	public function __get($_file){}
 	
 	public function __set($var, $val){}
 	
 	}
+	
 	
 ?>
